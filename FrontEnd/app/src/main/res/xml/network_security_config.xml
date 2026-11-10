@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- Permite tráfego HTTP apenas para o IP da sua AWS -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">77.113.221.216</domain>
+    </domain-config>
+</network-security-config>

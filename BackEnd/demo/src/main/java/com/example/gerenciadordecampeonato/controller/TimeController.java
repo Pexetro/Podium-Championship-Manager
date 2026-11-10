@@ -92,4 +92,11 @@ public class TimeController {
 
         return ResponseEntity.ok(time);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Time> buscarPorId(@PathVariable Long id) {
+        return timeRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 }

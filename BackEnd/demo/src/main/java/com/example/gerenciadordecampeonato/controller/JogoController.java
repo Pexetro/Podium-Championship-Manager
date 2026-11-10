@@ -57,4 +57,11 @@ public class JogoController {
     public List<Jogo> listarTodos() {
         return jogoRepository.findAll();
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Jogo> buscarPorId(@PathVariable Long id) {
+        return jogoRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 }

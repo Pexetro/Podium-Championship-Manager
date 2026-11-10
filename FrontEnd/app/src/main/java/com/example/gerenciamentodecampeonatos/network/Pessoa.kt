@@ -1,10 +1,12 @@
 package com.example.gerenciamentodecampeonatos.network
 
+import com.google.gson.annotations.SerializedName
+
 data class Pessoa(
-    val id_pessoa: Long? = null,
-    val nome: String,
-    val cpf: Long,
-    val email: String,
-    val data_nascimento: String, // Ex: "2000-01-01"
-    val senha: String? = null
+    @SerializedName("idPessoa") val id_pessoa: Long? = null,
+    @SerializedName("nome") val nome: String,
+    @SerializedName("cpf") val cpf: Long,
+    @SerializedName("email") val email: String,
+    @SerializedName("data_nascimento") val data_nascimento: String,
+    @SerializedName("senha") val senha: String? = null
 )

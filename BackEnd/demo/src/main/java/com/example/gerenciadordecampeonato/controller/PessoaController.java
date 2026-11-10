@@ -55,4 +55,32 @@ public class PessoaController {
     public List<Pessoa> listarTodos() {
         return repository.findAll();
     }
+
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Pessoa> buscarPorId(@PathVariable Long id) {
+        return repository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> atualizar(@PathVariable Long id, @RequestBody Pessoa dadosAtualizados) {
+        return repository.findById(id).map(pessoa -> {
+
+            pessoa.setNome(dadosAtualizados.getNome());
+            pessoa.setEmail(dadosAtualizados.getEmail());
+            pessoa.setCpf(dadosAtualizados.getCpf());
+            pessoa.setDataNascimento(dadosAtualizados.getDataNascimento());
+
+            if (dadosAtualizados.getSenha() != null && !dadosAtualizados.getSenha().trim().isEmpty()) {
+                String novoHash = encoder.encode(dadosAtualizados.getSenha());
+                pessoa.setHash(novoHash);
+            }
+
+            Pessoa atualizado = repository.save(pessoa);
+            return ResponseEntity.ok(atualizado);
+
+        }).orElse(ResponseEntity.notFound().build());
+    }
 }

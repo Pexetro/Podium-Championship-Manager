@@ -65,6 +65,7 @@ class SignInActivity : AppCompatActivity() {
         btVoltar.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         btCadastrar.setOnClickListener {
@@ -95,9 +96,10 @@ class SignInActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            var dataPraApi = ""
 // Valida a data de nascimento
             if (validarDataNascimento(dataNascimento)) {
-                formatarDataParaApi(dataNascimento)
+                dataPraApi = formatarDataParaApi(dataNascimento)
             } else {
                 etDataNascimento.error = "Digite uma data válida"
                 etDataNascimento.requestFocus()
@@ -134,7 +136,7 @@ class SignInActivity : AppCompatActivity() {
                 email = email,
                 senha = senha,
                 cpf = cpfLimpo.toLong(),
-                data_nascimento = dataNascimento
+                data_nascimento = dataPraApi
             )
 
             btCadastrar.isEnabled = false
@@ -157,6 +159,8 @@ class SignInActivity : AppCompatActivity() {
                         startActivity(intent)
                     } else {
                         // Se a API recusar (ex: e-mail já existe)
+                        val erroMsg = response.errorBody()?.string()
+                        android.util.Log.e("DEBUG_CADASTRO", "Erro retornado pela API: $erroMsg")
                         Toast.makeText(
                             this@SignInActivity,
                             "Erro: ${response.errorBody()?.string()}",

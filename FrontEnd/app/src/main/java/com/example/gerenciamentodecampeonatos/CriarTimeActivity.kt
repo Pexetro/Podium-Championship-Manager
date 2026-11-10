@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class CriarTime : AppCompatActivity() {
+class CriarTimeActivity : AppCompatActivity() {
 
     private lateinit var etNomeTime: EditText
     private lateinit var etQuantidadeJogadores: EditText

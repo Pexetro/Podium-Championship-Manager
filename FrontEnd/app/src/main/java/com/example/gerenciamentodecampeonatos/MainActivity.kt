@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         val session = SessionManager(this)
 
         if (session.estaLogado()) {
-            val intent = Intent(this, Hub::class.java)
+            val intent = Intent(this, HubActivity::class.java)
             startActivity(intent)
             finish()
             return
@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity() {
         btCadastro.setOnClickListener {
             val intent = Intent(this, SignInActivity::class.java)
             startActivity(intent)
+            finish()
 
         }
 
@@ -80,19 +81,27 @@ class MainActivity : AppCompatActivity() {
                     val response = RetrofitClient.apiService.loginPessoa(loginRequest)
 
                     if (response.isSuccessful) {
-                        Toast.makeText(
-                            this@MainActivity,
-                            "Login realizado com sucesso!",
-                            Toast.LENGTH_LONG
-                        ).show()
                         val pessoaLogada = response.body()
+
+                        // --- ADICIONE ESTES LOGS ---
+                        android.util.Log.d("LOGIN_DEBUG", "Login deu certo. Objeto veio nulo? ${pessoaLogada == null}")
+                        android.util.Log.d("LOGIN_DEBUG", "ID recebido do banco: ${pessoaLogada?.id_pessoa}")
+                        // ---------------------------
+
                         if (pessoaLogada != null && pessoaLogada.id_pessoa != null) {
+                            val session = SessionManager(this@MainActivity)
                             session.salvarIdUsuario(pessoaLogada.id_pessoa)
+
+                            // --- ADICIONE ESTE LOG ---
+                            android.util.Log.d("LOGIN_DEBUG", "ID salvo no SharedPreferences: ${session.obterIdUsuario()}")
+                            // -------------------------
                         }
 
-                        val intent = Intent(this@MainActivity, Hub::class.java)
+                        Toast.makeText(this@MainActivity, "Login realizado com sucesso!", Toast.LENGTH_LONG).show()
+                        val intent = Intent(this@MainActivity, HubActivity::class.java)
                         startActivity(intent)
-                        finish() // Fecha a tela de login para o usuário não voltar
+                        finish()
+
                     } else {
                         Toast.makeText(
                             this@MainActivity,

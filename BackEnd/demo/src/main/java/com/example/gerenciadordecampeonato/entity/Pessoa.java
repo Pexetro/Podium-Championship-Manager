@@ -14,6 +14,7 @@ public class Pessoa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty("id_pessoa")
     private Long idPessoa;
 
     @Transient

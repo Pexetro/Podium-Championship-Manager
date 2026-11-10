@@ -89,5 +89,12 @@ public class CampeonatoController {
 
         return ResponseEntity.ok(campeonato);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Campeonato> buscarPorId(@PathVariable Long id) {
+        return campeonatoRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 }
 

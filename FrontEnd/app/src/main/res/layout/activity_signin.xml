@@ -1,186 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/bg_creme"
+    android:fillViewport="true">
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Digite seu Nome"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        android:padding="24dp">
 
-    <EditText
-        android:id="@+id/etNome"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:hint="Nome completo"
-        android:inputType="textPersonName"
-        app:layout_constraintTop_toBottomOf="@id/textView8"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <!-- Título -->
+        <TextView
+            android:id="@+id/tvTituloCadastro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="Crie sua conta"
+            android:textColor="#33691E"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Digite seu Email"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintTop_toBottomOf="@id/etNome"
-        app:layout_constraintStart_toStartOf="parent"/>
+        <!-- 1. NOME -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilNome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvTituloCadastro">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etNome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nome completo"
+                android:inputType="textPersonName" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/etEmailCad"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        app:layout_constraintTop_toBottomOf="@id/textView2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <!-- 2. EMAIL -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilEmailCad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/tilNome">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etEmailCad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="E-mail"
+                android:inputType="textEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Confirme seu Email"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintTop_toBottomOf="@id/etEmailCad"
-        app:layout_constraintStart_toStartOf="parent"/>
+        <!-- 3. CONFIRMAR EMAIL -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilEmailConf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/tilEmailCad">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etEmailConf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Confirme o E-mail"
+                android:inputType="textEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/etEmailConf"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:hint="Confirme o Email"
-        android:inputType="textEmailAddress"
-        app:layout_constraintTop_toBottomOf="@id/textView3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <!-- 4. CPF -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilCpf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/tilEmailConf">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etCpf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="CPF"
+                android:inputType="number"
+                android:maxLength="14" /> <!-- 14 por causa da máscara -->
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/textViewNascimento"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Data de nascimento"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintTop_toBottomOf="@id/etEmailConf"
-        app:layout_constraintStart_toStartOf="parent"/>
+        <!-- 5. DATA DE NASCIMENTO -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilDataNascimento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/tilCpf">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etDataNascimento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Data de Nascimento (DD/MM/AAAA)"
+                android:inputType="number"
+                android:maxLength="10" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/etDataNascimento"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:hint="DD/MM/AAAA"
-        android:inputType="date"
-        android:maxLength="10"
-        app:layout_constraintTop_toBottomOf="@id/textViewNascimento"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <!-- 6. SENHA -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilSenhaCad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:passwordToggleEnabled="true"
+            app:layout_constraintTop_toBottomOf="@+id/tilDataNascimento">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etSenhaCad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Senha"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/textViewCpf"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Digite seu CPF"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintTop_toBottomOf="@id/etDataNascimento"
-        app:layout_constraintStart_toStartOf="parent"/>
+        <!-- 7. CONFIRMAR SENHA -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilSenhaConf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:passwordToggleEnabled="true"
+            app:layout_constraintTop_toBottomOf="@+id/tilSenhaCad">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etSenhaConf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Confirme a Senha"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/etCpf"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:hint="000.000.000-00"
-        android:inputType="number"
-        android:maxLength="11"
-        app:layout_constraintTop_toBottomOf="@id/textViewCpf"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <!-- BOTÃO VOLTAR (como texto clicável para ficar mais moderno) -->
+        <TextView
+            android:id="@+id/btVoltar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Já tenho conta. Fazer Login"
+            android:textColor="#7CB342"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tilSenhaConf" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Digite sua Senha"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintTop_toBottomOf="@id/etCpf"
-        app:layout_constraintStart_toStartOf="parent"/>
+        <!-- BOTÃO CADASTRAR -->
+        <Button
+            android:id="@+id/btCadastrar"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="#7CB342"
+            android:text="CADASTRAR"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btVoltar" />
 
-    <EditText
-        android:id="@+id/etSenhaCad"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:hint="Senha"
-        android:inputType="textPassword"
-        app:layout_constraintTop_toBottomOf="@id/textView4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Confirme sua Senha"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintTop_toBottomOf="@id/etSenhaCad"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <EditText
-        android:id="@+id/etSenhaConf"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:hint="Confirme a Senha"
-        android:inputType="textPassword"
-        app:layout_constraintTop_toBottomOf="@id/textView5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <Button
-        android:id="@+id/btVoltar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Voltar"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/etSenhaConf"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <Button
-        android:id="@+id/btCadastrar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cadastrar"
-        android:layout_marginEnd="24dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/etSenhaConf"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

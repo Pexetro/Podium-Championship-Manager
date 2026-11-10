@@ -1,5 +1,9 @@
 package com.example.gerenciamentodecampeonatos
 
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
+import com.example.gerenciamentodecampeonatos.network.Pessoa
+import com.example.gerenciamentodecampeonatos.network.RetrofitClient
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -9,9 +13,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import android.util.Patterns
+import android.widget.TextView
 import android.widget.Toast
 import java.time.LocalDate
-import java.time.Period
 import java.time.format.DateTimeFormatter
 import java.time.format.ResolverStyle
 
@@ -32,9 +36,9 @@ class SignInActivity : AppCompatActivity() {
 
     private lateinit var etSenhaConf: EditText
 
-    private lateinit var btVoltar : Button
+    private lateinit var btVoltar: TextView
 
-    private lateinit var btCadastrar : Button
+    private lateinit var btCadastrar: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,7 +96,9 @@ class SignInActivity : AppCompatActivity() {
             }
 
 // Valida a data de nascimento
-            if (!validarDataNascimento(dataNascimento)) {
+            if (validarDataNascimento(dataNascimento)) {
+                formatarDataParaApi(dataNascimento)
+            } else {
                 etDataNascimento.error = "Digite uma data válida"
                 etDataNascimento.requestFocus()
                 return@setOnClickListener
@@ -120,151 +126,212 @@ class SignInActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // Se todas as validações passarem, executa o Intent
-            val intent = Intent(this, Hub::class.java)
-            intent.putExtra("NOME_USUARIO", nome)
-            startActivity(intent)
-        }
+            val cpfLimpo = cpf.filter { it.isDigit() }
 
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-    }
+            val novaPessoa = Pessoa(
+                nome = nome,
+                email = email,
+                senha = senha,
+                cpf = cpfLimpo.toLong(),
+                data_nascimento = dataNascimento
+            )
 
+            btCadastrar.isEnabled = false
+            btCadastrar.text = "Cadastrando..."
 
-    private fun validarDataNascimento(data: String): Boolean {
-        return try {
-            val formatador = DateTimeFormatter
-                .ofPattern("dd/MM/uuuu")
-                .withResolverStyle(ResolverStyle.STRICT)
+            lifecycleScope.launch {
+                try {
+                    val response = RetrofitClient.apiService.cadastrarPessoa(novaPessoa)
 
-            val nascimento = LocalDate.parse(data, formatador)
-            val hoje = LocalDate.now()
+                    if (response.isSuccessful) {
+                        Toast.makeText(
+                            this@SignInActivity,
+                            "Cadastro realizado com sucesso!",
+                            Toast.LENGTH_LONG
+                        ).show()
 
-            // Impede datas futuras
-            !nascimento.isAfter(hoje)
-
-        } catch (e: Exception) {
-            false
-        }
-    }
-
-
-    private fun validarCPF(cpf: String): Boolean {
-
-        val numeros = cpf.filter { it.isDigit() }
-
-        // Verifica se possui 11 dígitos
-        if (numeros.length != 11) return false
-
-        // Impede sequências repetidas, como 111.111.111-11
-        if (numeros.all { it == numeros[0] }) return false
-
-        val digitos = numeros.map { it.digitToInt() }
-
-        // Calcula o primeiro dígito verificador
-        var soma = 0
-
-        for (i in 0 until 9) {
-            soma += digitos[i] * (10 - i)
-        }
-
-        var resto = (soma * 10) % 11
-        if (resto == 10) resto = 0
-
-        if (resto != digitos[9]) return false
-
-        // Calcula o segundo dígito verificador
-        soma = 0
-
-        for (i in 0 until 10) {
-            soma += digitos[i] * (11 - i)
-        }
-
-        resto = (soma * 10) % 11
-        if (resto == 10) resto = 0
-
-        return resto == digitos[10]
-    }
-
-
-    private fun aplicarMascaraCPF(editText: EditText) {
-        editText.addTextChangedListener(object : android.text.TextWatcher {
-
-            private var atualizando = false
-
-            override fun beforeTextChanged(
-                s: CharSequence?, start: Int, count: Int, after: Int
-            ) {}
-
-            override fun onTextChanged(
-                s: CharSequence?, start: Int, before: Int, count: Int
-            ) {}
-
-            override fun afterTextChanged(s: android.text.Editable?) {
-                if (atualizando) return
-
-                atualizando = true
-
-                val numeros = s.toString()
-                    .filter { it.isDigit() }
-                    .take(11)
-
-                val formatado = buildString {
-                    numeros.forEachIndexed { index, char ->
-                        if (index == 3 || index == 6) append(".")
-                        if (index == 9) append("-")
-                        append(char)
+                        // Se todas as validações passarem, executa o Intent
+                        val intent = Intent(this@SignInActivity, MainActivity::class.java)
+                        intent.putExtra("NOME_USUARIO", nome)
+                        startActivity(intent)
+                    } else {
+                        // Se a API recusar (ex: e-mail já existe)
+                        Toast.makeText(
+                            this@SignInActivity,
+                            "Erro: ${response.errorBody()?.string()}",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
+                } catch (e: Exception) {
+                    Toast.makeText(
+                        this@SignInActivity,
+                        "Erro de conexão com o servidor: ${e.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                } finally {
+                    // Reativa o botão independente do resultado
+                    btCadastrar.isEnabled = true
+                    btCadastrar.text = "Cadastrar"
+                }
+            }
+
+
+            ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+                val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+                v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+                insets
+            }
+        }
+    }
+
+
+
+        private fun validarDataNascimento(data: String): Boolean {
+            return try {
+                val formatador = DateTimeFormatter
+                    .ofPattern("dd/MM/uuuu")
+                    .withResolverStyle(ResolverStyle.STRICT)
+
+                val nascimento = LocalDate.parse(data, formatador)
+                val hoje = LocalDate.now()
+
+                // Impede datas futuras
+                !nascimento.isAfter(hoje)
+
+            } catch (e: Exception) {
+                false
+            }
+        }
+    }
+
+        private fun formatarDataParaApi(data: String): String {
+            return try {
+                val formatadorEntrada = DateTimeFormatter.ofPattern("dd/MM/uuuu")
+                val formatadorSaida = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+
+                val dataObjeto = LocalDate.parse(data, formatadorEntrada)
+                dataObjeto.format(formatadorSaida) // Retorna "2006-12-30"
+            } catch (e: Exception) {
+                ""
+            }
+        }
+
+        private fun validarCPF(cpf: String): Boolean {
+
+            val numeros = cpf.filter { it.isDigit() }
+
+            // Verifica se possui 11 dígitos
+            if (numeros.length != 11) return false
+
+            // Impede sequências repetidas, como 111.111.111-11
+            if (numeros.all { it == numeros[0] }) return false
+
+            val digitos = numeros.map { it.digitToInt() }
+
+            // Calcula o primeiro dígito verificador
+            var soma = 0
+
+            for (i in 0 until 9) {
+                soma += digitos[i] * (10 - i)
+            }
+
+            var resto = (soma * 10) % 11
+            if (resto == 10) resto = 0
+
+            if (resto != digitos[9]) return false
+
+            // Calcula o segundo dígito verificador
+            soma = 0
+
+            for (i in 0 until 10) {
+                soma += digitos[i] * (11 - i)
+            }
+
+            resto = (soma * 10) % 11
+            if (resto == 10) resto = 0
+
+            return resto == digitos[10]
+        }
+
+
+        private fun aplicarMascaraCPF(editText: EditText) {
+            editText.addTextChangedListener(object : android.text.TextWatcher {
+
+                private var atualizando = false
+
+                override fun beforeTextChanged(
+                    s: CharSequence?, start: Int, count: Int, after: Int
+                ) {
                 }
 
-                editText.setText(formatado)
-                editText.setSelection(formatado.length)
-
-                atualizando = false
-            }
-        })
-    }
-
-    private fun aplicarMascaraData(editText: EditText) {
-        editText.addTextChangedListener(object : android.text.TextWatcher {
-
-            private var atualizando = false
-
-            override fun beforeTextChanged(
-                s: CharSequence?, start: Int, count: Int, after: Int
-            ) {}
-
-            override fun onTextChanged(
-                s: CharSequence?, start: Int, before: Int, count: Int
-            ) {}
-
-            override fun afterTextChanged(s: android.text.Editable?) {
-                if (atualizando) return
-
-                atualizando = true
-
-                val numeros = s.toString()
-                    .filter { it.isDigit() }
-                    .take(8)
-
-                val formatado = buildString {
-                    numeros.forEachIndexed { index, char ->
-                        if (index == 2 || index == 4) append("/")
-                        append(char)
-                    }
+                override fun onTextChanged(
+                    s: CharSequence?, start: Int, before: Int, count: Int
+                ) {
                 }
 
-                editText.setText(formatado)
-                editText.setSelection(formatado.length)
+                override fun afterTextChanged(s: android.text.Editable?) {
+                    if (atualizando) return
 
-                atualizando = false
-            }
-        })
+                    atualizando = true
 
-    }
+                    val numeros = s.toString()
+                        .filter { it.isDigit() }
+                        .take(11)
 
-}
+                    val formatado = buildString {
+                        numeros.forEachIndexed { index, char ->
+                            if (index == 3 || index == 6) append(".")
+                            if (index == 9) append("-")
+                            append(char)
+                        }
+                    }
+
+                    editText.setText(formatado)
+                    editText.setSelection(formatado.length)
+
+                    atualizando = false
+                }
+            })
+        }
+
+        private fun aplicarMascaraData(editText: EditText) {
+            editText.addTextChangedListener(object : android.text.TextWatcher {
+
+                private var atualizando = false
+
+                override fun beforeTextChanged(
+                    s: CharSequence?, start: Int, count: Int, after: Int
+                ) {
+                }
+
+                override fun onTextChanged(
+                    s: CharSequence?, start: Int, before: Int, count: Int
+                ) {
+                }
+
+                override fun afterTextChanged(s: android.text.Editable?) {
+                    if (atualizando) return
+
+                    atualizando = true
+
+                    val numeros = s.toString()
+                        .filter { it.isDigit() }
+                        .take(8)
+
+                    val formatado = buildString {
+                        numeros.forEachIndexed { index, char ->
+                            if (index == 2 || index == 4) append("/")
+                            append(char)
+                        }
+                    }
+
+                    editText.setText(formatado)
+                    editText.setSelection(formatado.length)
+
+                    atualizando = false
+                }
+            })
+
+        }
+

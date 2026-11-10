@@ -16,4 +16,8 @@ class SessionManager(context: Context) {
     fun logout() {
         prefs.edit().clear().apply()
     }
+
+    fun estaLogado(): Boolean {
+        return obterIdUsuario() > 0L
+    }
 }

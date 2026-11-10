@@ -24,5 +24,5 @@ public class CampeonatoTime {
     private Time time;
 
 
-    private LocalDate data_inscricao;
+    private LocalDate dataInscricao;
 }

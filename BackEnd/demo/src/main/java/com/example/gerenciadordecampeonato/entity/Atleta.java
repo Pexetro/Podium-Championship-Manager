@@ -11,7 +11,7 @@ public class Atleta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_atleta;
+    private Long idAtleta;
 
     @OneToOne
     @JoinColumn(name = "id_pessoa")

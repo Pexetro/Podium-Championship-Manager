@@ -23,5 +23,5 @@ public class AtletaTime {
     @JoinColumn(name = "id_time")
     private Time time;
 
-    private LocalDate data_entrada;
+    private LocalDate dataEntrada;
 }

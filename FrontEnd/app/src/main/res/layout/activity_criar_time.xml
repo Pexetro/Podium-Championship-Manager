@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    tools:context=".CriarTime">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Criar novo time"
+                android:textColor="#222222"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginBottom="24dp"/>
+
+            <!-- Nome do time -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nome do time"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#333333"/>
+
+            <EditText
+                android:id="@+id/etNomeTime"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:hint="Digite o nome do time"
+                android:inputType="textCapWords"
+                android:padding="12dp"
+                android:backgroundTint="#555555"
+                android:layout_marginBottom="20dp"/>
+
+            <!-- Quantidade de jogadores -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Quantidade de jogadores iniciais"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#333333"/>
+
+            <EditText
+                android:id="@+id/etQuantidadeJogadores"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:hint="Ex: 11"
+                android:inputType="number"
+                android:maxLength="2"
+                android:padding="12dp"
+                android:backgroundTint="#555555"
+                android:layout_marginBottom="12dp"/>
+
+            <Button
+                android:id="@+id/btGerarJogadores"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Gerar jogadores"
+                android:layout_marginBottom="20dp"/>
+
+            <!-- Lista dinâmica de jogadores -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Informações dos jogadores"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#222222"
+                android:layout_marginBottom="12dp"/>
+
+            <LinearLayout
+                android:id="@+id/containerJogadores"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"/>
+
+            <!-- Salvar time -->
+
+            <Button
+                android:id="@+id/btSalvarTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Salvar time"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="20dp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

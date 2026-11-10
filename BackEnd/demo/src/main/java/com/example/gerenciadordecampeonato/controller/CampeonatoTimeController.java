@@ -16,7 +16,7 @@ public class CampeonatoTimeController {
     private CampeonatoTimeRepository repository;
 
     @GetMapping
-    public List<CampeonatoTime> listarTodas() {
+    public List<CampeonatoTime> listarTodos() {
         return repository.findAll();
     }
 
@@ -36,7 +36,7 @@ public class CampeonatoTimeController {
     public ResponseEntity<CampeonatoTime> atualizar(@PathVariable Long id, @RequestBody CampeonatoTime dadosAtualizados) {
         return repository.findById(id).map(campeonatoTime -> {
 
-            campeonatoTime.setData_inscricao(dadosAtualizados.getData_inscricao());
+            campeonatoTime.setDataInscricao(dadosAtualizados.getDataInscricao());
 
             campeonatoTime.setTime(dadosAtualizados.getTime());
             campeonatoTime.setCampeonato(dadosAtualizados.getCampeonato());

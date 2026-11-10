@@ -1,7 +1,10 @@
 package com.example.gerenciadordecampeonato.entity;
+import com.example.gerenciadordecampeonato.dto.DetalhesPontuacao;
 import lombok.Getter;
 import lombok.Setter;
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDateTime;
 
@@ -23,16 +26,16 @@ public class Jogo {
     @JoinColumn(name = "id_time_mandante")
     private Time timeMandante;
 
-
     @ManyToOne
     @JoinColumn(name = "id_time_visitante")
     private Time timeVisitante;
 
-    private LocalDateTime data_hora;
+    private LocalDateTime dataHora;
 
-    private Integer placar_mandante;
+    private String status;
+    private String faseRodada;
 
-    private Integer placar_visitante;
-
-    private String fase_rodada;
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "jsonb")
+    private DetalhesPontuacao pontuacao;
 }

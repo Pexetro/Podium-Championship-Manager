@@ -14,7 +14,7 @@ public class Pessoa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_pessoa;
+    private Long idPessoa;
 
     @Transient
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -30,5 +30,5 @@ public class Pessoa {
 
     private String email;
 
-    private LocalDate data_nascimento;
+    private LocalDate dataNascimento;
 }

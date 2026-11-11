@@ -21,4 +21,10 @@ interface ApiService {
 
     @PUT("pessoas/{id}")
     suspend fun atualizarPessoa(@Path("id") id: Long, @Body pessoa: Pessoa): Response<Pessoa>
+
+    @POST("campeonatos")
+    suspend fun criarCampeonato(@Body campeonato: Campeonato, @Query("criadorId") criadorId: Long): Response<Campeonato>
+
+    @GET("campeonatos")
+    suspend fun listarCampeonatos(): Response<List<Campeonato>>
 }

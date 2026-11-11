@@ -66,11 +66,10 @@ class CampeonatosActivity : AppCompatActivity() {
 
         fabAddCampeonato.setOnClickListener {
 
-            // Substitua pelo nome real da sua Activity de criação.
-            // Exemplo:
-            // startActivity(
-            //     Intent(this, CriarCampeonatoActivity::class.java)
-            // )
+
+            startActivity(
+                 Intent(this, CriarCampActivity::class.java)
+            )
 
         }
     }

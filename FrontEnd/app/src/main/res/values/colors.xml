@@ -5,4 +5,5 @@
     <color name="text_dark">#212121</color>
     <color name="primary_green">#7CB342</color>
     <color name="gold_detail">#D4AF37</color>
+    <color name="bg_edit_text_color">#F5F5F5</color>
 </resources>

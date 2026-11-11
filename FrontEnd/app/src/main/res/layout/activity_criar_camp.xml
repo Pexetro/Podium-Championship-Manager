@@ -1,215 +1,251 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_creme"
-    android:paddingBottom="24dp"
+    android:fillViewport="true"
     tools:context=".CriarCampActivity">
 
-    <!-- CABEÇALHO -->
-    <TextView
-        android:id="@+id/tvTitulo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
-        android:text="Criar Campeonato"
-        android:textColor="@color/primary_green"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <TextView
-        android:id="@+id/tvSubtitulo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="6dp"
-        android:text="Configure seu novo torneio"
-        android:textColor="@color/text_dark"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTitulo"/>
-
-    <!-- DIVISÓRIA -->
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="20dp"
-        android:background="#D4AF37"
-        app:layout_constraintTop_toBottomOf="@id/tvSubtitulo"/>
-
-    <!-- CARD DE INFORMAÇÕES -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardInformacoes"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="24dp"
-        app:cardBackgroundColor="@color/surface_white"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="4dp"
-        app:strokeWidth="0dp"
-        app:layout_constraintTop_toBottomOf="@id/divider">
+        android:paddingBottom="32dp">
 
-        <LinearLayout
+        <!-- CABEÇALHO -->
+        <TextView
+            android:id="@+id/tvTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            android:text="Criar Campeonato"
+            android:textColor="@color/primary_green"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/tvSubtitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="6dp"
+            android:text="Configure seu novo torneio"
+            android:textColor="@color/text_dark"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTitulo"/>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/gold_detail"
+            app:layout_constraintTop_toBottomOf="@id/tvSubtitulo"/>
+
+        <!-- CARD DE INFORMAÇÕES -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardInformacoes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp">
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="24dp"
+            app:cardBackgroundColor="@color/surface_white"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            app:layout_constraintTop_toBottomOf="@id/divider">
 
-            <!-- NOME -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nome do campeonato"
-                android:textColor="@color/text_dark"
-                android:textSize="15sp"
-                android:textStyle="bold"/>
-
-            <EditText
-                android:id="@+id/etNomeCamp"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/bg_edit_text"
-                android:hint="Ex: Campeonato de Futebol"
-                android:inputType="textCapSentences"
-                android:paddingHorizontal="14dp"
-                android:textColor="@color/text_dark"
-                android:textColorHint="#999999"
-                android:textSize="14sp"/>
-
-            <!-- TIMES -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Times participantes"
-                android:textColor="@color/text_dark"
-                android:textSize="15sp"
-                android:textStyle="bold"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btSelecionarTimes"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginTop="8dp"
-                android:text="Selecionar times"
-                android:textAllCaps="false"
-                android:textColor="@color/primary_green"
-                android:textSize="14sp"
-                app:backgroundTint="@color/surface_white"
-                app:cornerRadius="10dp"
-                app:strokeColor="@color/primary_green"
-                app:strokeWidth="1dp"
-                app:icon="@android:drawable/ic_menu_add"
-                app:iconTint="@color/primary_green"/>
-
-            <TextView
-                android:id="@+id/tvTimesSelecionados"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:text="Nenhum time selecionado"
-                android:textColor="#888888"
-                android:textSize="12sp"/>
+                android:orientation="vertical"
+                android:padding="20dp">
 
-            <!-- MODALIDADE -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Modalidade"
-                android:textColor="@color/text_dark"
-                android:textSize="15sp"
-                android:textStyle="bold"/>
+                <!-- NOME -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nome do campeonato"
+                    android:textColor="@color/text_dark"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>
 
-            <Spinner
-                android:id="@+id/spModalidade"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/bg_edit_text"
-                android:entries="@array/modalidades"
-                android:paddingHorizontal="10dp"/>
+                <EditText
+                    android:id="@+id/etNomeCamp"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_edit_text"
+                    android:hint="Ex: Copa de Futebol"
+                    android:inputType="textCapSentences"
+                    android:paddingHorizontal="14dp"
+                    android:textColor="@color/text_dark"
+                    android:textColorHint="#999999"
+                    android:textSize="14sp"/>
 
-            <!-- DATA INÍCIO -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Data de início"
-                android:textColor="@color/text_dark"
-                android:textSize="15sp"
-                android:textStyle="bold"/>
+                <!-- DESCRIÇÃO (Novo) -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Descrição"
+                    android:textColor="@color/text_dark"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btDataInicio"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginTop="8dp"
-                android:text="Selecionar data de início"
-                android:textAllCaps="false"
-                android:textColor="@color/text_dark"
-                app:backgroundTint="@color/surface_white"
-                app:cornerRadius="10dp"
-                app:strokeColor="#D4AF37"
-                app:strokeWidth="1dp"
-                app:icon="@android:drawable/ic_menu_my_calendar"
-                app:iconTint="@color/primary_green"/>
+                <EditText
+                    android:id="@+id/etDescricao"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_edit_text"
+                    android:hint="Breve descrição do torneio"
+                    android:inputType="textCapSentences"
+                    android:paddingHorizontal="14dp"
+                    android:textColor="@color/text_dark"
+                    android:textColorHint="#999999"
+                    android:textSize="14sp"/>
 
-            <!-- DATA FIM -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Data de término"
-                android:textColor="@color/text_dark"
-                android:textSize="15sp"
-                android:textStyle="bold"/>
+                <!-- TIMES -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Times participantes"
+                    android:textColor="@color/text_dark"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btDataFim"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginTop="8dp"
-                android:text="Selecionar data de término"
-                android:textAllCaps="false"
-                android:textColor="@color/text_dark"
-                app:backgroundTint="@color/surface_white"
-                app:cornerRadius="10dp"
-                app:strokeColor="#D4AF37"
-                app:strokeWidth="1dp"
-                app:icon="@android:drawable/ic_menu_my_calendar"
-                app:iconTint="@color/primary_green"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btSelecionarTimes"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Selecionar times (Opcional)"
+                    android:textAllCaps="false"
+                    android:textColor="@color/primary_green"
+                    android:textSize="14sp"
+                    app:backgroundTint="@color/surface_white"
+                    app:cornerRadius="10dp"
+                    app:strokeColor="@color/primary_green"
+                    app:strokeWidth="1dp"
+                    app:icon="@android:drawable/ic_menu_add"
+                    app:iconTint="@color/primary_green"/>
 
-        </LinearLayout>
+                <!-- MODALIDADE -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Modalidade"
+                    android:textColor="@color/text_dark"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>
 
-    </com.google.android.material.card.MaterialCardView>
+                <Spinner
+                    android:id="@+id/spModalidade"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_edit_text"
+                    android:paddingHorizontal="10dp"/>
 
-    <!-- BOTÃO CRIAR -->
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btCriarCamp"
-        android:layout_width="match_parent"
-        android:layout_height="58dp"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="24dp"
-        android:text="Criar Campeonato"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:backgroundTint="@color/primary_green"
-        app:cornerRadius="14dp"
-        app:elevation="4dp"
-        app:layout_constraintTop_toBottomOf="@id/cardInformacoes"/>
+                <!-- DATAS -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Data de início"
+                            android:textColor="@color/text_dark"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btDataInicio"
+                            android:layout_width="match_parent"
+                            android:layout_height="55dp"
+                            android:layout_marginTop="8dp"
+                            android:text="Escolher"
+                            android:textAllCaps="false"
+                            android:textColor="@color/text_dark"
+                            android:textSize="10sp"
+                            app:backgroundTint="@color/surface_white"
+                            app:cornerRadius="10dp"
+                            app:icon="@android:drawable/ic_menu_my_calendar"
+                            app:iconTint="@color/primary_green"
+                            app:strokeColor="@color/gold_detail"
+                            app:strokeWidth="1dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Data de término"
+                            android:textColor="@color/text_dark"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btDataFim"
+                            android:layout_width="match_parent"
+                            android:layout_height="55dp"
+                            android:layout_marginTop="8dp"
+                            android:text="Escolher"
+                            android:textAllCaps="false"
+                            android:textColor="@color/text_dark"
+                            android:textSize="10sp"
+                            app:backgroundTint="@color/surface_white"
+                            app:cornerRadius="10dp"
+                            app:icon="@android:drawable/ic_menu_my_calendar"
+                            app:iconTint="@color/primary_green"
+                            app:strokeColor="@color/gold_detail"
+                            app:strokeWidth="1dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- BOTÃO CRIAR -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btCriarCamp"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="24dp"
+            android:text="Criar Campeonato"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:backgroundTint="@color/primary_green"
+            app:cornerRadius="14dp"
+            app:layout_constraintTop_toBottomOf="@id/cardInformacoes"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

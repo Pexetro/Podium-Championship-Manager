@@ -60,6 +60,8 @@
             android:windowSoftInputMode="adjustResize" />
 
 
+
+
     </application>
 
 </manifest>

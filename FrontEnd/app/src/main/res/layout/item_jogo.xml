@@ -6,77 +6,117 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="12dp"
     app:cardBackgroundColor="@color/surface_white"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="2dp">
+    app:cardCornerRadius="16dp"
+    app:cardElevation="3dp"
+    app:strokeColor="@color/gold_detail"
+    app:strokeWidth="1dp">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:padding="16dp">
 
+        <!-- Fase do Jogo -->
         <TextView
             android:id="@+id/tvFaseJogo"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Fase de Grupos"
+            android:text="FINAL"
             android:textColor="@color/gold_detail"
             android:textSize="12sp"
             android:textStyle="bold"
-            android:gravity="center" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <!-- Nome do Time Mandante -->
+        <TextView
+            android:id="@+id/tvTimeMandante"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:text="Time Mandante"
+            android:textColor="@color/text_dark"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:gravity="end"
+            app:layout_constraintEnd_toStartOf="@+id/tvPlacar"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvFaseJogo" />
+
+        <!-- PLACAR PRINCIPAL (Gols/Pontos) -->
+        <TextView
+            android:id="@+id/tvPlacar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:text="0 - 0"
+            android:textColor="@color/primary_green"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/tvTimeMandante"
+            app:layout_constraintEnd_toStartOf="@+id/tvTimeVisitante"
+            app:layout_constraintStart_toEndOf="@+id/tvTimeMandante"
+            app:layout_constraintTop_toTopOf="@+id/tvTimeMandante" />
+
+        <!-- Nome do Time Visitante -->
+        <TextView
+            android:id="@+id/tvTimeVisitante"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Time Visitante"
+            android:textColor="@color/text_dark"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:gravity="start"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/tvPlacar"
+            app:layout_constraintTop_toBottomOf="@id/tvFaseJogo" />
+
+        <!-- NOVO: Placar Secundário (Sets) - Fica embaixo do principal -->
+        <TextView
+            android:id="@+id/tvPlacarSets"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="(3 - 1 set)"
+            android:textColor="@color/gold_detail"
+            android:textSize="12sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvPlacar" />
+
+        <!-- Tempo Atual (Finalizado / 2º Tempo) -->
+        <TextView
+            android:id="@+id/tvTempoAtual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:gravity="center_vertical">
+            android:text="Finalizado"
+            android:textColor="@color/primary_green"
+            android:textSize="12sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvPlacarSets" />
 
-            <!-- Mandante -->
-            <TextView
-                android:id="@+id/tvTimeMandante"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="Time A"
-                android:textColor="@color/text_dark"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:gravity="end" />
-
-            <!-- Placar -->
-            <TextView
-                android:id="@+id/tvPlacar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="16dp"
-                android:text="0 - 0"
-                android:textColor="@color/primary_green"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <!-- Visitante -->
-            <TextView
-                android:id="@+id/tvTimeVisitante"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="Time B"
-                android:textColor="@color/text_dark"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:gravity="start" />
-        </LinearLayout>
-
+        <!-- Data e Hora -->
         <TextView
             android:id="@+id/tvDataJogo"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="01/01/2026 - 16:00"
+            android:layout_marginTop="16dp"
+            android:text="27/11/2026 às 06:29"
             android:textColor="@color/text_dark"
             android:textSize="12sp"
-            android:gravity="center" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTempoAtual" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

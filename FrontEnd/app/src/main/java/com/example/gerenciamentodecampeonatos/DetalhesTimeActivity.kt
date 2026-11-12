@@ -1,7 +1,6 @@
 package com.example.gerenciamentodecampeonatos
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
@@ -23,7 +22,7 @@ class DetalhesTimeActivity : AppCompatActivity() {
     private val listaAtletas = mutableListOf<AtletaTime>()
 
     private var idTime: Long = 0L
-    private var isAdministrador = false // Variável que guarda a permissão do usuário
+    private var isAdministrador = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,30 +31,25 @@ class DetalhesTimeActivity : AppCompatActivity() {
         // Recebe os dados da tela anterior
         idTime = intent.getLongExtra("ID_TIME", 0L)
         val nomeTime = intent.getStringExtra("NOME_TIME")
-
         findViewById<TextView>(R.id.tvNomeTimeDetalhe).text = nomeTime
 
         rvAtletas = findViewById(R.id.rvAtletas)
         tvSemAtletas = findViewById(R.id.tvSemAtletas)
         fabAddAtleta = findViewById(R.id.fabAddAtleta)
 
-        // Configura o RecyclerView
-        atletaAdapter = AtletaAdapter(listaAtletas) { atletaTime ->
-            // Só permite remover se for administrador (o botão nem aparece se não for)
-            if (isAdministrador) {
-                confirmarRemocaoAtleta(atletaTime)
-            }
+        // 1. Configura o RecyclerView APENAS UMA VEZ AQUI
+        atletaAdapter = AtletaAdapter(listaAtletas, isAdministrador) { atletaTime ->
+            confirmarRemocaoAtleta(atletaTime)
         }
-
         rvAtletas.layoutManager = LinearLayoutManager(this)
         rvAtletas.adapter = atletaAdapter
 
-        // Ação do botão de adicionar atleta (+)
+        // 2. Ação do botão de adicionar atleta (+)
         fabAddAtleta.setOnClickListener {
             abrirDialogoDeSelecaoDePessoa()
         }
 
-        // 1. Verifica a permissão e carrega os atletas
+        // 3. Verifica a permissão e carrega os atletas
         verificarPermissaoEcarregar()
     }
 
@@ -68,16 +62,23 @@ class DetalhesTimeActivity : AppCompatActivity() {
 
                 if (response.isSuccessful && response.body() != null) {
                     val time = response.body()!!
-
-                    // VERIFICAÇÃO:
+                    // Verifica se é admin
                     isAdministrador = time.administradores?.any { it.id_pessoa == idUsuarioLogado } ?: false
-
-                    // MOSTRAR/ESCONDER BOTÃO:
+                    // Mostra/esconde o botão "+"
                     fabAddAtleta.visibility = if (isAdministrador) View.VISIBLE else View.GONE
+
+                    // ATUALIZA O ADAPTER COM A NOVA PERMISSÃO
+                    atletaAdapter = AtletaAdapter(listaAtletas, isAdministrador) { atletaTime ->
+                        confirmarRemocaoAtleta(atletaTime)
+                    }
+                    rvAtletas.adapter = atletaAdapter
                 }
             } catch (e: Exception) {
-                // ...
+                // Se der erro, considera que não é admin por segurança
+                isAdministrador = false
             }
+
+            // Depois de verificar, carrega a lista
             carregarAtletasDoTime()
         }
     }
@@ -100,10 +101,8 @@ class DetalhesTimeActivity : AppCompatActivity() {
                         tvSemAtletas.visibility = View.GONE
                     }
 
-                    // Se não for admin, podemos esconder a lixeira do adapter (Opcional)
-                    // atletaAdapter.mostrarLixeira = isAdministrador
+                    // SÓ NOTIFICA O ADAPTER QUE JÁ EXISTE, NÃO CRIA UM NOVO!
                     atletaAdapter.notifyDataSetChanged()
-                    Log.d("DEBUG_LISTA", "Chegaram ${listaAtletas.size} atletas")
                 }
             } catch (e: Exception) {
                 Toast.makeText(this@DetalhesTimeActivity, "Erro ao buscar elenco.", Toast.LENGTH_SHORT).show()
@@ -171,8 +170,6 @@ class DetalhesTimeActivity : AppCompatActivity() {
                 val novoAtleta = Atleta(pessoa = pessoa)
                 val responseAtleta = RetrofitClient.apiService.criarAtleta(novoAtleta)
 
-                android.util.Log.d("DEBUG_ADD", "Criar Atleta Code: ${responseAtleta.code()}")
-
                 if (responseAtleta.isSuccessful) {
                     val idAtleta = responseAtleta.body()?.id_atleta
 
@@ -182,8 +179,6 @@ class DetalhesTimeActivity : AppCompatActivity() {
                             atletaId = idAtleta,
                             usuarioSolicitanteId = idUsuario
                         )
-
-                        android.util.Log.d("DEBUG_ADD", "Vincular Code: ${responseVinculo.code()}")
 
                         if (responseVinculo.isSuccessful) {
                             Toast.makeText(this@DetalhesTimeActivity, "${pessoa.nome} adicionado!", Toast.LENGTH_SHORT).show()

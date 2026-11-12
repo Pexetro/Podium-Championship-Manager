@@ -46,7 +46,10 @@ class CampeonatosActivity : AppCompatActivity() {
 
     private fun configurarRecyclerView() {
         campeonatoAdapter = CampeonatoAdapter(listaCampeonatos) { campeonato ->
-            Toast.makeText(this, "Abrir detalhes de: ${campeonato.nome_campeonato}", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, DetalhesCampActivity::class.java)
+            intent.putExtra("ID_CAMP", campeonato.id_campeonato) // Envia o ID
+            intent.putExtra("NOME_CAMP", campeonato.nome_campeonato) // Envia o Nome
+            startActivity(intent)
         }
         rvCampeonatos.layoutManager = LinearLayoutManager(this)
         rvCampeonatos.adapter = campeonatoAdapter
@@ -69,7 +72,7 @@ class CampeonatosActivity : AppCompatActivity() {
                 if (response.isSuccessful && response.body() != null) {
                     listaCampeonatos.clear()
 
-                    // Filtra para mostrar apenas os do usuário
+
                     val todos = response.body()!!
                     listaCampeonatos.addAll(response.body()!!)
 

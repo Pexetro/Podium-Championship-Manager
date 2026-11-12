@@ -10,6 +10,7 @@ import com.example.gerenciamentodecampeonatos.network.AtletaTime
 
 class AtletaAdapter(
     private val lista: List<AtletaTime>,
+    private val isAdmin: Boolean, // <--- NOVO PARÂMETRO
     private val onRemoverClick: (AtletaTime) -> Unit
 ) : RecyclerView.Adapter<AtletaAdapter.AtletaViewHolder>() {
 
@@ -19,7 +20,6 @@ class AtletaAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AtletaViewHolder {
-        // Aqui ele infla o item_atleta.xml que acabamos de criar
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_atleta, parent, false)
         return AtletaViewHolder(view)
     }
@@ -27,12 +27,17 @@ class AtletaAdapter(
     override fun onBindViewHolder(holder: AtletaViewHolder, position: Int) {
         val atletaTime = lista[position]
 
-        // NAVEGANDO PELO OBJETO: AtletaTime -> Atleta -> Pessoa -> Nome
+        // Navegando pelo objeto: AtletaTime -> Atleta -> Pessoa -> Nome
         val nomeDoAtleta = atletaTime.atleta?.pessoa?.nome ?: "Atleta sem nome"
         holder.nome.text = nomeDoAtleta
 
-        // Configura o botão de remover
-        holder.btnRemover.setOnClickListener { onRemoverClick(atletaTime) }
+        // LÓGICA DE VISIBILIDADE DA LIXEIRA
+        if (isAdmin) {
+            holder.btnRemover.visibility = View.VISIBLE
+            holder.btnRemover.setOnClickListener { onRemoverClick(atletaTime) }
+        } else {
+            holder.btnRemover.visibility = View.GONE
+        }
     }
 
     override fun getItemCount() = lista.size

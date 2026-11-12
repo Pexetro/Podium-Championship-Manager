@@ -22,7 +22,18 @@ public class AtletaController {
     }
 
     @PostMapping
-    public ResponseEntity<Atleta> criar(@RequestBody Atleta atleta) {
+    public ResponseEntity<?> criar(@RequestBody Atleta atleta) {
+        // 1. Verifica se o Atleta já existe para essa Pessoa
+        if (atleta.getPessoa() != null && atleta.getPessoa().getIdPessoa() != null) {
+            Atleta atletaExistente = repository.findByPessoaIdPessoa(atleta.getPessoa().getIdPessoa());
+
+            if (atletaExistente != null) {
+                // Se já existe, retorna o atleta existente em vez de dar erro 500
+                return ResponseEntity.ok(atletaExistente);
+            }
+        }
+
+        // 2. Se não existe, cria um novo
         return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(atleta));
     }
 

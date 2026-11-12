@@ -4,38 +4,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="16dp"
     android:background="@color/bg_creme">
 
     <!-- Cabeçalho -->
     <TextView
         android:id="@+id/tvNomeTimeDetalhe"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="24dp"
         android:text="Nome do Time"
         android:textColor="@color/primary_green"
         android:textSize="28sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/fabAddAtleta"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- Botão flutuante para adicionar atleta -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAddAtleta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:src="@android:drawable/ic_input_add"
-        android:visibility="gone"
-        android:contentDescription="Adicionar atleta"
-        app:backgroundTint="@color/primary_green"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@android:color/white" />
 
     <View
         android:id="@+id/divisorTime"
@@ -59,7 +45,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/divisorTime" />
 
-    <!-- Lista de Atletas -->
+    <!-- Lista de Atletas (Adicionado paddingBottom para não ser coberto pelo botão) -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAtletas"
         android:layout_width="match_parent"
@@ -67,7 +53,7 @@
         android:layout_marginTop="12dp"
         android:clipToPadding="false"
         android:paddingHorizontal="24dp"
-        android:paddingBottom="24dp"
+        android:paddingBottom="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTituloElenco" />
 
@@ -83,5 +69,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTituloElenco" />
+
+    <!-- BOTÃO DE ADICIONAR ATLETA (Inferior Direito) -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddAtleta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="80dp"
+        android:src="@android:drawable/ic_input_add"
+        android:visibility="gone"
+        android:contentDescription="Adicionar atleta"
+        app:backgroundTint="@color/primary_green"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@android:color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

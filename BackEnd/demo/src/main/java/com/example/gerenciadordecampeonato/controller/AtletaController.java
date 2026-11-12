@@ -3,6 +3,7 @@ package com.example.gerenciadordecampeonato.controller;
 import com.example.gerenciadordecampeonato.entity.Atleta;
 import com.example.gerenciadordecampeonato.repository.AtletaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,8 +22,8 @@ public class AtletaController {
     }
 
     @PostMapping
-    public Atleta criar(@RequestBody Atleta atleta) {
-        return repository.save(atleta);
+    public ResponseEntity<Atleta> criar(@RequestBody Atleta atleta) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(atleta));
     }
 
     @GetMapping("/{id}")

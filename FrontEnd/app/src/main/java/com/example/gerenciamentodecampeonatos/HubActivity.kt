@@ -23,21 +23,21 @@ class HubActivity : AppCompatActivity() {
         // 2. Ação do botão de Perfil
         val ivPerfil = findViewById<ImageView>(R.id.ivPerfil)
         ivPerfil.setOnClickListener {
-            val intent = Intent(this, PerfilActivity::class.java) // (Crie essa tela depois)
+            val intent = Intent(this, PerfilActivity::class.java)
             startActivity(intent)
         }
 
         // 3. Ação do Card de Campeonatos
         val cardCampeonatos = findViewById<MaterialCardView>(R.id.cardCampeonatos)
         cardCampeonatos.setOnClickListener {
-            val intent = Intent(this, CampeonatosActivity::class.java) // (Crie essa tela depois)
+            val intent = Intent(this, CampeonatosActivity::class.java)
             startActivity(intent)
         }
 
         // 4. Ação do Card de Times
         val cardTimes = findViewById<MaterialCardView>(R.id.cardTimes)
         cardTimes.setOnClickListener {
-            val intent = Intent(this, TimesActivity::class.java) // (Crie essa tela depois)
+            val intent = Intent(this, TimesActivity::class.java)
             startActivity(intent)
         }
     }

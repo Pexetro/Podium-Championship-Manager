@@ -1,6 +1,7 @@
 package com.example.gerenciadordecampeonato.controller;
 
 import com.example.gerenciadordecampeonato.entity.CampeonatoTime;
+import com.example.gerenciadordecampeonato.entity.Campeonato;
 import com.example.gerenciadordecampeonato.repository.CampeonatoTimeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -45,6 +46,11 @@ public class CampeonatoTimeController {
             return ResponseEntity.ok(atualizado);
 
         }).orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/campeonato/{idCampeonato}")
+    public List<CampeonatoTime> listarPorCampeonato(@PathVariable Long idCampeonato) {
+        return repository.findByCampeonatoIdCampeonato(idCampeonato);
     }
 
     @DeleteMapping("/{id}")

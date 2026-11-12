@@ -58,10 +58,22 @@
             android:name=".TimesActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
-
-
-
-
+        <activity
+            android:name=".DetalhesCampActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".DetalhesTimeActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".CriarJogoActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".DetalhesJogoActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

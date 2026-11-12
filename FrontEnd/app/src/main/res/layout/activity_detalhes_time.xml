@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="16dp"
+    android:background="@color/bg_creme">
+
+    <!-- Cabeçalho -->
+    <TextView
+        android:id="@+id/tvNomeTimeDetalhe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:text="Nome do Time"
+        android:textColor="@color/primary_green"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/divisorTime"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/gold_detail"
+        app:layout_constraintTop_toBottomOf="@id/tvNomeTimeDetalhe" />
+
+    <TextView
+        android:id="@+id/tvTituloElenco"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="Elenco do Time"
+        android:textColor="@color/text_dark"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divisorTime" />
+
+    <!-- Lista de Atletas (Adicionado paddingBottom para não ser coberto pelo botão) -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvAtletas"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:clipToPadding="false"
+        android:paddingHorizontal="24dp"
+        android:paddingBottom="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTituloElenco" />
+
+    <!-- Texto caso o time não tenha atletas -->
+    <TextView
+        android:id="@+id/tvSemAtletas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Este time ainda não possui atletas."
+        android:textColor="@color/text_dark"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTituloElenco" />
+
+    <!-- BOTÃO DE ADICIONAR ATLETA (Inferior Direito) -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddAtleta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="80dp"
+        android:src="@android:drawable/ic_input_add"
+        android:visibility="gone"
+        android:contentDescription="Adicionar atleta"
+        app:backgroundTint="@color/primary_green"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@android:color/white" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

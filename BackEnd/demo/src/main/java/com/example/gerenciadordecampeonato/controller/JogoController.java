@@ -58,10 +58,8 @@ public class JogoController {
         return jogoRepository.findAll();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Jogo> buscarPorId(@PathVariable Long id) {
-        return jogoRepository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    @GetMapping("/campeonato/{idCampeonato}")
+    public List<Jogo> listarJogosDoCampeonato(@PathVariable Long idCampeonato) {
+        return jogoRepository.findByCampeonatoIdCampeonato(idCampeonato);
     }
 }

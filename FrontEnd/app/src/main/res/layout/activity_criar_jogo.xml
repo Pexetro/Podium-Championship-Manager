@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_creme"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/tvTituloCriarJogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Agendar Jogo"
+            android:textColor="@color/primary_green"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardJogo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:cardBackgroundColor="@color/surface_white"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            app:layout_constraintTop_toBottomOf="@id/tvTituloCriarJogo">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <!-- TIME MANDANTE -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Time Mandante"
+                    android:textColor="@color/text_dark"
+                    android:textStyle="bold"/>
+
+                <!-- MUDANÇA: AutoCompleteTextView em vez de Spinner -->
+                <AutoCompleteTextView
+                    android:id="@+id/autoTimeMandante"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_edit_text"
+                    android:hint="Digite para buscar o time..."
+                    android:paddingHorizontal="14dp"
+                    android:textColor="@color/text_dark"
+                    android:inputType="text"/>
+
+                <!-- TIME VISITANTE -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Time Visitante"
+                    android:textColor="@color/text_dark"
+                    android:textStyle="bold"/>
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoTimeVisitante"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_edit_text"
+                    android:hint="Digite para buscar o time..."
+                    android:paddingHorizontal="14dp"
+                    android:textColor="@color/text_dark"
+                    android:inputType="text"/>
+
+                <!-- FASE / RODADA -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Fase / Rodada"
+                    android:textColor="@color/text_dark"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/etFaseRodada"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_edit_text"
+                    android:hint="Ex: Quartas de Final"
+                    android:paddingHorizontal="14dp"
+                    android:textColor="@color/text_dark"/>
+
+                <!-- DATA E HORA -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Data e Hora"
+                    android:textColor="@color/text_dark"
+                    android:textStyle="bold"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btDataHora"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Selecionar Data e Hora"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_dark"
+                    app:backgroundTint="@color/bg_creme"
+                    app:cornerRadius="10dp"
+                    app:strokeColor="@color/gold_detail"
+                    app:strokeWidth="1dp"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <Button
+            android:id="@+id/btSalvarJogo"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="@color/primary_green"
+            android:text="AGENDAR JOGO"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardJogo" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

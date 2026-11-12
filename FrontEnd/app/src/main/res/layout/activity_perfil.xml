@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:padding="24dp">
 
-        <!-- Ícone do Usuário -->
+        <!-- Ícone -->
         <ImageView
             android:id="@+id/ivAvatar"
             android:layout_width="100dp"
@@ -25,30 +25,62 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@android:color/white" />
 
-        <!-- Campo Nome -->
+        <TextView
+            android:id="@+id/tvNomeHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Nome do Usuário"
+            android:textColor="@color/primary_green"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivAvatar" />
+
+        <TextView
+            android:id="@+id/tvEmailHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="email@exemplo.com"
+            android:textColor="@color/text_dark"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvNomeHeader" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="24dp"
+            android:background="@color/gold_detail"
+            app:layout_constraintTop_toBottomOf="@id/tvEmailHeader" />
+
+        <!-- Campos do Formulário -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilNomePerfil"
+            android:id="@+id/tilNome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@id/ivAvatar">
+            app:layout_constraintTop_toBottomOf="@id/divider">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etNomePerfil"
+                android:id="@+id/etNome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Nome completo"
-                android:enabled="false" />
+                android:enabled="false" /> <!-- Começa desabilitado -->
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Campo Email -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilEmailPerfil"
+            android:id="@+id/tilEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            app:layout_constraintTop_toBottomOf="@id/tilNomePerfil">
+            app:layout_constraintTop_toBottomOf="@id/tilNome">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etEmailPerfil"
+                android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="E-mail"
@@ -56,44 +88,54 @@
                 android:enabled="false" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Campo Nova Senha (Opcional) -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilSenhaPerfil"
+            android:id="@+id/tilSenha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             app:passwordToggleEnabled="true"
-            app:layout_constraintTop_toBottomOf="@id/tilEmailPerfil">
+            app:layout_constraintTop_toBottomOf="@id/tilEmail">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etSenhaPerfil"
+                android:id="@+id/etSenha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nova Senha (deixe em branco para não alterar)"
+                android:hint="Nova Senha (deixe em branco p/ não alterar)"
                 android:inputType="textPassword"
                 android:enabled="false" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Botão Editar -->
+        <!-- Botão Editar/Salvar -->
         <Button
-            android:id="@+id/btEditar"
+            android:id="@+id/btEditarSalvar"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="24dp"
             android:backgroundTint="@color/primary_green"
             android:text="EDITAR PERFIL"
-            app:layout_constraintTop_toBottomOf="@id/tilSenhaPerfil" />
+            app:layout_constraintTop_toBottomOf="@id/tilSenha" />
+
+        <!-- Botão Cancelar (Escondido inicialmente) -->
+        <Button
+            android:id="@+id/btCancelar"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="#9E9E9E"
+            android:text="CANCELAR"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/btEditarSalvar" />
 
         <!-- Botão Sair -->
         <Button
             android:id="@+id/btSair"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
             android:backgroundTint="#D32F2F"
             android:text="SAIR DA CONTA"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btEditar" />
+            app:layout_constraintTop_toBottomOf="@id/btCancelar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
